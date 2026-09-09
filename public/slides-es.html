@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Matemáticas para Panamá — Presentación ES</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #003087;
+    --red: #c21e2d;
+    --bg: #f8f7f4;
+    --surface: #ffffff;
+    --border: #e2e0db;
+    --text: #1a1a2e;
+    --text2: #4a4a6a;
+    --text3: #8a8aaa;
+    --green: #1a7f4b;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: #ddd; }
+
+  @media print {
+    body { background: white; }
+    .no-print { display: none !important; }
+    .slide { page-break-after: always; box-shadow: none !important; }
+    .slide:last-child { page-break-after: avoid; }
+    @page { size: A4 landscape; margin: 0; }
+  }
+
+  /* Print button */
+  .no-print {
+    position: fixed; top: 1rem; right: 1rem; z-index: 999;
+    display: flex; gap: 0.8rem;
+  }
+  .no-print button {
+    background: var(--blue); color: white; border: none;
+    padding: 10px 20px; border-radius: 8px; cursor: pointer;
+    font-family: 'Inter', sans-serif; font-size: 0.88rem; font-weight: 600;
+  }
+
+  /* Slide base */
+  .slide {
+    width: 297mm; height: 210mm;
+    background: var(--bg);
+    display: flex; flex-direction: column;
+    position: relative; overflow: hidden;
+    margin: 0 auto 12px; box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+    padding: 14mm 18mm;
+  }
+
+  /* No grid texture */
+
+  .slide-inner { position: relative; z-index: 1; height: 100%; display: flex; flex-direction: column; }
+
+  /* Slide number */
+  .slide-num {
+    position: absolute; top: 6mm; right: 8mm;
+    font-size: 7pt; color: var(--text3);
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* Panama bar at bottom */
+  .panama-bar {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--blue) 50%, var(--red) 50%);
+  }
+
+  .eyebrow {
+    display: inline-block;
+    font-size: 6.5pt; font-weight: 600; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--text3);
+    background: none;
+    padding: 0; border-radius: 0;
+    margin-bottom: 4px; width: fit-content;
+  }
+  .eyebrow.red { color: var(--red); background: none; }
+  .eyebrow.green { color: var(--green); background: none; }
+
+  /* Accent bar */
+  .accent-bar {
+    width: 32px; height: 3px;
+    background: linear-gradient(90deg, var(--blue), var(--red));
+    border-radius: 100px; margin: 5px 0 10px;
+  }
+
+  /* Titles */
+  h1 { font-family: 'Outfit', sans-serif; font-size: 26pt; font-weight: 900; line-height: 1.1; color: var(--text); }
+  h1 em { font-style: normal; color: var(--blue); }
+  h2 { font-family: 'Outfit', sans-serif; font-size: 18pt; font-weight: 800; line-height: 1.15; color: var(--text); }
+  h2 em { font-style: normal; color: var(--blue); }
+  h2 em.red { color: var(--red); }
+  h3 { font-family: 'Outfit', sans-serif; font-size: 10pt; font-weight: 700; color: var(--text); margin-bottom: 3px; }
+  p { font-size: 9pt; color: var(--text2); line-height: 1.6; }
+  p strong { color: var(--text); font-weight: 600; }
+
+  /* ── SLIDE 1: TITLE ── */
+  .slide-title { align-items: center; justify-content: center; text-align: center; }
+  .title-org-row { display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 12px; }
+  .title-org-row span { font-size: 8pt; color: var(--text3); }
+  .title-sub { font-size: 9pt; color: var(--text2); margin-bottom: 16px; }
+  .author-card {
+    display: inline-flex; flex-direction: column; align-items: center; text-align: center;
+    background: white; border: 1px solid var(--border);
+    border-radius: 10px; padding: 8px 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  }
+  .author-avatar {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--blue), var(--red));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Outfit', sans-serif; font-size: 11pt; font-weight: 800; color: white;
+  }
+  .author-info h3 { font-size: 9pt; margin-bottom: 1px; }
+  .author-info p { font-size: 7.5pt; }
+
+  /* ── STORY SCENES ── */
+  .story-scene {
+    display: flex; gap: 10px; align-items: flex-start;
+    background: white; border: 1px solid var(--border);
+    border-left: 3px solid var(--blue);
+    border-radius: 8px; padding: 9px 12px;
+    margin-bottom: 7px;
+  }
+  .scene-icon { display: none; }
+  .story-question {
+    background: rgba(0,48,135,0.06);
+    border-left: 3px solid var(--blue);
+    border-radius: 8px; padding: 9px 12px;
+    font-family: 'Outfit', sans-serif; font-size: 9.5pt; font-weight: 700; color: var(--blue);
+    margin-top: 8px;
+  }
+
+  /* ── FLAG CARDS ── */
+  .flag-row { display: flex; align-items: center; justify-content: center; gap: 16px; margin: 12px 0; }
+  .flag-card {
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    background: white; border: 1px solid var(--border);
+    border-radius: 10px; padding: 10px 18px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+  }
+  .flag-card .flag-emoji { font-size: 22pt; }
+  .flag-card .flag-name { font-size: 7.5pt; font-weight: 700; color: var(--text2); }
+  .flag-div { font-size: 14pt; color: var(--text3); }
+
+  /* ── TABLE ── */
+  .curr-table { width: 100%; border-collapse: collapse; font-size: 7.5pt; margin: 10px 0; }
+  .curr-table thead th {
+    background: var(--blue); color: white;
+    padding: 6px 10px; text-align: center;
+    font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 8pt;
+  }
+  .curr-table thead th:first-child { text-align: left; }
+  .curr-table tbody tr { border-bottom: 1px solid var(--border); }
+  .curr-table tbody tr:nth-child(even) { background: rgba(0,48,135,0.03); }
+  .curr-table tbody td { padding: 6px 10px; color: var(--text2); line-height: 1.4; }
+  .curr-table tbody td:first-child { font-family: 'Outfit', sans-serif; font-weight: 700; color: var(--blue); white-space: nowrap; }
+  .curr-table tbody td:not(:first-child) { text-align: center; }
+  .curriculum-summary {
+    margin-top: 10px; font-size: 8pt; color: var(--text2); text-align: center;
+  }
+  .curriculum-summary strong {
+    color: var(--blue); font-weight: 700;
+  }
+
+  /* ── INFO CARDS 3-col ── */
+  .info-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 14px; }
+  .info-card {
+    background: white; border: 1px solid var(--border);
+    border-radius: 8px; padding: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  }
+  .info-card.neg { border-top: 3px solid var(--red); }
+  .info-card.pos { border-top: 3px solid var(--blue); }
+  .info-card.suc { border-top: 3px solid var(--green); }
+  .info-card.war { border-top: 3px solid #b45309; }
+  .card-icon { display: none; }
+
+  /* ── TWO PLATFORMS ── */
+  .two-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
+  .plat-card {
+    background: white; border: 1px solid var(--border);
+    border-radius: 10px; padding: 14px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .plat-card.blue { border-top: 3px solid var(--blue); }
+  .plat-card.red2 { border-top: 3px solid var(--red); }
+  .plat-card h3 { font-size: 10pt; margin-bottom: 5px; }
+  .plat-card p { font-size: 8pt; margin-bottom: 8px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 8px; }
+  .tag {
+    background: #f0f0f0; border: 1px solid var(--border);
+    border-radius: 100px; padding: 2px 8px; font-size: 6.5pt; color: var(--text2);
+  }
+  .tag.feat { background: rgba(0,48,135,0.08); color: var(--blue); font-weight: 600; }
+  .url-link {
+    display: block; background: #f5f4f0; border: 1px solid var(--border);
+    border-radius: 5px; padding: 5px 8px; font-size: 7pt; color: var(--blue);
+    text-decoration: none; font-weight: 600;
+  }
+
+  /* ── PLATFORM LAYOUT ── */
+  .plat-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 8px; }
+  .feat-item {
+    display: flex; gap: 8px; align-items: flex-start;
+    background: white; border: 1px solid var(--border);
+    border-radius: 7px; padding: 7px 10px;
+    margin-bottom: 6px;
+  }
+  .feat-icon { display: none; }
+  .feat-item h4 { font-size: 8pt; font-weight: 700; color: var(--text); margin-bottom: 1px; font-family: 'Outfit', sans-serif; }
+  .feat-item p { font-size: 7pt; }
+
+  /* ── GRADE GRID ── */
+  .grade-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 12px; }
+  .grade-card {
+    background: white; border: 1px solid var(--border);
+    border-radius: 7px; padding: 10px;
+  }
+  .grade-label { font-size: 6.5pt; font-weight: 700; color: var(--blue); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 2px; }
+  .grade-title { font-family: 'Outfit', sans-serif; font-size: 8.5pt; font-weight: 700; color: var(--text); margin-bottom: 5px; }
+  .grade-topics { list-style: none; }
+  .grade-topics li { font-size: 7pt; color: var(--text2); padding-left: 10px; position: relative; line-height: 1.5; }
+  .grade-topics li::before { content: '·'; position: absolute; left: 3px; color: var(--red); font-weight: 700; }
+
+  /* ── ROLE CARDS ── */
+  .role-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 14px; }
+  .role-card {
+    background: white; border: 1px solid var(--border);
+    border-radius: 10px; padding: 14px; text-align: center;
+  }
+  .role-num { font-family: 'Outfit', sans-serif; font-size: 20pt; font-weight: 900; color: var(--blue); opacity: 0.3; margin-bottom: 4px; }
+
+  /* ── CLOSING ── */
+  .closing-links { display: flex; gap: 10px; justify-content: center; margin: 12px 0; }
+  .close-link {
+    background: white; border: 1px solid var(--border);
+    border-radius: 8px; padding: 9px 14px;
+    text-decoration: none; min-width: 140px;
+  }
+  .close-link .lbl { font-size: 6.5pt; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--blue); margin-bottom: 2px; }
+  .close-link .url { font-size: 7pt; color: var(--text2); }
+  .contact-row { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+  .contact-row span { font-size: 8pt; color: var(--text2); }
+</style>
+</head>
+<body>
+
+<div class="no-print">
+  <button onclick="window.print()">🖨️ Guardar como PDF (Ctrl+P)</button>
+</div>
+
+<!-- ────────────────────────────────────────────────────── -->
+<!-- SLIDE 1: TÍTULO -->
+<!-- ────────────────────────────────────────────────────── -->
+<div class="slide slide-title">
+  <div class="slide-inner" style="align-items:center;justify-content:center;text-align:center">
+    <div class="title-org-row">
+      <span>🇵🇦</span>
+      <span>Club Heartitude</span>
+      <span>·</span>
+      <span>Panamá 2026</span>
+    </div>
+    <h1>Matemáticas para Panamá:<br><em>Una herramienta nacida del aula</em></h1>
+    <div class="accent-bar" style="margin:10px auto 12px"></div>
+    <p class="title-sub">Plataformas digitales gratuitas · Basadas en MEDUCA 2024 · Preescolar y Primaria 1° – 6°</p>
+    <div class="author-card">
+      <div class="author-info">
+        <h3>Jiyun Kim</h3>
+        <p>Instagram: @heartitude_ba</p>
+      </div>
+    </div>
+  </div>
+  <div class="panama-bar"></div>
+  <div class="slide-num">1 / 12</div>
+</div>
+
+<!-- SLIDE 2: HISTORIA -->
+<div class="slide">
+  <div class="slide-inner">
+    <div class="eyebrow">El punto de partida · Panamá, 2021</div>
+    <h2>Llegué a Panamá.<br>Y algo llamó mi atención.</h2>
+    <div class="accent-bar"></div>
+    <div class="story-scene">
+      <p>En una cafetería, pagué y recibí el vuelto. <strong>Algo no cuadraba.</strong> Conté de nuevo — era diferente.</p>
+    </div>
+    <div class="story-scene">
+      <p>En el supermercado, lo mismo. A veces <strong>de menos</strong>, a veces <strong>de más</strong>. No era deshonestidad — era algo más profundo.</p>
+    </div>
+    <div class="story-question">¿Tiene esto relación con cómo se enseñan las operaciones básicas?</div>
+  </div>
+  <div class="panama-bar"></div>
+  <div class="slide-num">2 / 12</div>
+</div>
+
+<!-- SLIDE 3: CURIOSIDAD -->
+<div class="slide">
+  <div class="slide-inner" style="align-items:center;justify-content:center;text-align:center">
+    <div class="eyebrow">Una pregunta sincera</div>
+    <h2>Siempre amé las matemáticas.<br>Entonces me pregunté:<br><em>¿Se enseña lo mismo en todo el mundo?</em></h2>
+    <div class="accent-bar" style="margin:8px auto 10px"></div>
+    <div class="flag-row">
+      <div class="flag-card"><span class="flag-emoji">🇰🇷</span><span class="flag-name">Corea del Sur</span></div>
+      <span class="flag-div">+</span>
+      <div class="flag-card"><span class="flag-emoji">🇺🇸</span><span class="flag-name">Estados Unidos</span></div>
+      <span class="flag-div">+</span>
+      <div class="flag-card"><span class="flag-emoji">🇵🇦</span><span class="flag-name">Panamá — MEDUCA</span></div>
+    </div>
+    <p>Revisé los currículos oficiales de los tres países y los comparé en detalle.</p>
+  </div>
+  <div class="panama-bar"></div>
+  <div class="slide-num">3 / 12</div>
+</div>
+
+<!-- SLIDE 4: CURRÍCULO -->
+<div class="slide">
+  <div class="slide-inner">
+    <div style="text-align:center;margin-bottom:10px">
+      <div class="eyebrow">Lo que encontré</div>
+      <h2>El contenido matemático es universal</h2>
+      <p style="text-align:center;margin-top:3px">Los tres currículos cubren esencialmente los mismos temas</p>
+    </div>
+    <table class="curr-table">
+      <thead><tr><th>Grado</th><th>🇰🇷 Corea</th><th>🇺🇸 EE.UU.</th><th>🇵🇦 MEDUCA</th></tr></thead>
+      <tbody>
+        <tr><td>1° – 2°</td><td>Números, suma y resta, intro multiplicación</td><td>Operaciones básicas, valor posicional, medidas</td><td>Reconocimiento numérico, operaciones básicas, figuras</td></tr>
+        <tr><td>3° – 4°</td><td>Fracciones, decimales, mult. y div.</td><td>Mult. y div., fracciones, área y perímetro</td><td>Mult. y div., fracciones, decimales, medición</td></tr>
+        <tr><td>5° – 6°</td><td>Razones, estadística, probabilidad</td><td>Razones, estadística, álgebra básica</td><td>Fracciones avanzadas, razones, estadística, álgebra inicial</td></tr>
+      </tbody>
+    </table>
+    <p class="curriculum-summary">
+      <strong>Contenidos equivalentes:</strong> El currículo MEDUCA está alineado con estándares internacionales
+    </p>
+  </div>
+  <div class="panama-bar"></div>
+  <div class="slide-num">4 / 12</div>
+</div>
+
+<!-- SLIDE 5: PROBLEMA ANTERIOR -->
+<div class="slide">
+  <div class="slide-inner">
+    <div style="text-align:center;margin-bottom:10px">
+      <div class="eyebrow red">El problema que encontré</div>
+      <h2>El currículo anterior avanzaba<br><em class="red">demasiado rápido</em></h2>
+      <div class="accent-bar" style="margin:8px auto 0"></div>
+    </div>
+    <div class="info-cards">
+      <div class="info-card neg">
+        <span class="card-icon">⚡</span>
+        <h3>Progresión acelerada</h3>
+        <p>Algunos contenidos se introducían en grados muy tempranos, antes de que los estudiantes los pudieran asimilar bien.</p>
+      </div>
+      <div class="info-card neg">
+        <span class="card-icon">⏩</span>
+        <h3>Sin tiempo de consolidar</h3>
+        <p>Se avanzaba al siguiente tema antes de que el anterior quedara bien <strong>comprendido y practicado</strong>.</p>
+      </div>
+      <div class="info-card neg">
+        <span class="card-icon">🧱</span>
+        <h3>Base frágil</h3>
+        <p>Sin dominio de las operaciones básicas, los conceptos posteriores — fracciones, razones, álgebra — se vuelven muy difíciles.</p>
+      </div>
+    </div>
+  </div>
+  <div class="panama-bar"></div>
+  <div class="slide-num">5 / 12</div>
+</div>
+
+<!-- SLIDE 6: REVISIÓN 2024 -->
+<div class="slide">
+  <div class="slide-inner">
+    <div style="text-align:center;margin-bottom:10px">
+      <div class="eyebrow">MEDUCA · Revisión Curricular 2024</div>
+      <h2>La reforma mejoró el ritmo.<br><em class="red">Pero aún quedan brechas.</em></h2>
+      <div class="accent-bar" style="margin:8px auto 0"></div>
+    </div>
+    <div class="info-cards">
+      <div class="info-card suc">
+        <span class="card-icon">✅</span>
+        <h3>Lo que mejoró</h3>
+        <p>La progresión fue ajustada. Se adoptó el enfoque de <strong>Derechos Fundamentales de Aprendizaje (DFA)</strong> — primero comprensión, luego avance.</p>
+      </div>
+      <div class="info-card war">
+        <span class="card-icon">⚠️</span>
+        <h3>Lo que aún falta</h3>
+        <p>Algunos contenidos siguen introduciéndose <strong>antes que en Corea o EE.UU.</strong> — y para esos contenidos, faltan herramientas de práctica suficientes.</p>
+      </div>
+      <div class="info-card pos">
+        <span class="card-icon">💡</span>
+        <h3>La oportunidad</h3>
+        <p>La reforma va en la dirección correcta. Lo que necesita ahora son <strong>herramientas digitales</strong> que acompañen esa visión pedagógica.</p>
+      </div>
+    </div>
+  </div>
+  <div class="panama-bar"></div>
+  <div class="slide-num">6 / 12</div>
+</div>
+
+<!-- SLIDE 7: EVIDENCIAS -->
+<div class="slide">
+  <div class="slide-inner">
+    <div class="eyebrow">Tres fuentes · Una misma conclusión</div>
+    <h2>La necesidad no surgió de un libro.</h2>
+    <div class="accent-bar"></div>
+    <div class="story-scene">
+      <p><strong>Observación personal:</strong> En cafeterías y supermercados, el cálculo de vuelto con frecuencia era incorrecto — señal de fragilidad en las operaciones básicas.</p>
+    </div>
+    <div class="story-scene">
+      <p><strong>Voz del campo:</strong> Maestros voluntarios y padres de familia confirmaron: los niños necesitan <strong>más práctica con las cuatro operaciones básicas</strong> desde edad temprana.</p>
+    </div>
+    <div class="story-scene">
+      <p><strong>Análisis curricular:</strong> La comparación de tres currículos confirmó la brecha en herramientas de práctica adaptadas al contexto panameño.</p>
+    </div>
+    <div class="story-question">Las tres fuentes apuntaban al mismo lugar: operaciones básicas · práctica temprana · herramientas accesibles</div>
+  </div>
+  <div class="panama-bar"></div>
+  <div class="slide-num">7 / 12</div>
+</div>
+
+<!-- SLIDE 8: DOS PLATAFORMAS -->
+<div class="slide">
+  <div class="slide-inner">
+    <div style="text-align:center;margin-bottom:10px">
+      <div class="eyebrow green">La respuesta</div>
+      <h2>Dos plataformas · Una misma filosofía</h2>
+      <p style="text-align:center;margin-top:3px">Si la base es sólida desde pequeño, todo lo que viene después se construye mejor.</p>
+      <div class="accent-bar" style="margin:8px auto 0"></div>
+    </div>
+    <div class="two-grid">
+      <div class="plat-card red2">
+        <h3>Matemáticas para Preescolar</h3>
+        <p>Operaciones básicas desde edad temprana — a través del <strong>juego</strong>. Porque si los números son divertidos desde pequeño, el camino después es mucho más fácil.</p>
+        <div class="tags">
+          <span class="tag">Reconocimiento numérico</span><span class="tag">Suma y resta</span>
+          <span class="tag">Bingo de tablas</span><span class="tag">Medallas</span><span class="tag">Optimizada para móvil</span>
+        </div>
+        <a class="url-link" href="https://latidos-ninos.vercel.app/p/index.html">latidos-ninos.vercel.app</a>
+      </div>
+      <div class="plat-card blue">
+        <h3>Matemáticas para Primaria · 1° – 6°</h3>
+        <p>Basada en los <strong>Derechos Fundamentales de Aprendizaje (DFA) · MEDUCA 2024</strong>. Para que cada estudiante comprenda, practique y avance a su ritmo.</p>
+        <div class="tags">
+          <span class="tag feat">Aprende</span><span class="tag feat">Vocabulario</span>
+          <span class="tag feat">Practica</span><span class="tag feat">Evalúa</span><span class="tag feat">Zona de Juegos</span>
+        </div>
+        <a class="url-link" href="https://jy-matematica-panama.vercel.app/">jy-matematica-panama.vercel.app</a>
+      </div>
+    </div>
+  </div>
+  <div class="panama-bar"></div>
+  <div class="slide-num">8 / 12</div>
+</div>
+
+<!-- SLIDE 9: PLATAFORMA PRIMARIA -->
+<div class="slide">
+  <div class="slide-inner">
+    <div class="eyebrow" style="margin-bottom:6px">Plataforma Principal</div>
+    <h2 style="font-size:16pt;margin-bottom:4px">Matemáticas para Primaria</h2>
+    <div class="accent-bar"></div>
+    <div class="plat-layout">
+      <div>
+        <p style="margin-bottom:8px">Elaborada en concordancia con los <strong>Derechos Fundamentales de Aprendizaje (DFA)</strong> del MEDUCA, conforme a la Guía Metodológica de Matemáticas · revisión curricular 2024.</p>
+        <div class="tags" style="margin-bottom:8px">
+          <span class="tag feat">DFA · MEDUCA 2024</span><span class="tag feat">Gratuita</span>
+          <span class="tag">1° a 6° grado</span><span class="tag">En español</span><span class="tag">Sin instalación</span>
+        </div>
+        <a class="url-link" href="https://jy-matematica-panama.vercel.app/">jy-matematica-panama.vercel.app</a>
+      </div>
+      <div>
+        <div class="feat-item"><span class="feat-icon">📖</span><div><h4>Aprende</h4><p>Explicaciones conceptuales claras con ejemplos visuales adaptados al contexto panameño.</p></div></div>
+        <div class="feat-item"><span class="feat-icon">📚</span><div><h4>Vocabulario</h4><p>Glosario de términos matemáticos precisos para cada grado y unidad.</p></div></div>
+        <div class="feat-item"><span class="feat-icon">✏️</span><div><h4>Practica</h4><p>Ejercicios interactivos con retroalimentación inmediata — tiempo suficiente para consolidar.</p></div></div>
+        <div class="feat-item"><span class="feat-icon">📊</span><div><h4>Evalúa</h4><p>Medición del logro por unidad, alineada con los indicadores DFA.</p></div></div>
+        <div class="feat-item"><span class="feat-icon">🎮</span><div><h4>Zona de Juegos</h4><p>Speed Blitz · Drill Clásico · Memory Match — refuerzo lúdico.</p></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="panama-bar"></div>
+  <div class="slide-num">9 / 12</div>
+</div>
+
+<!-- SLIDE 10: MEDUCA -->
+<div class="slide">
+  <div class="slide-inner">
+    <div style="text-align:center;margin-bottom:10px">
+      <div class="eyebrow">Alineación curricular</div>
+      <h2>🇵🇦 Basada en DFA · MEDUCA 2024</h2>
+      <p style="text-align:center;margin-top:3px">Contenidos, competencias e indicadores de logro · Grados 1° al 6° de Primaria</p>
+    </div>
+    <div class="grade-grid">
+      <div class="grade-card"><div class="grade-label">1° Grado</div><div class="grade-title">Fundamentos</div><ul class="grade-topics"><li>Números del 0 al 100</li><li>Suma y resta básica</li><li>Figuras geométricas</li><li>Medidas de longitud</li></ul></div>
+      <div class="grade-card"><div class="grade-label">2° Grado</div><div class="grade-title">Construyendo</div><ul class="grade-topics"><li>Números hasta 1,000</li><li>Tablas de multiplicar</li><li>Fracciones simples</li><li>Tiempo y calendario</li></ul></div>
+      <div class="grade-card"><div class="grade-label">3° Grado</div><div class="grade-title">Ampliando</div><ul class="grade-topics"><li>Multiplicación y división</li><li>Números hasta 10,000</li><li>Fracciones equivalentes</li><li>Perímetro y área</li></ul></div>
+      <div class="grade-card"><div class="grade-label">4° Grado</div><div class="grade-title">Profundizando</div><ul class="grade-topics"><li>Decimales</li><li>Fracciones: suma y resta</li><li>Ángulos y polígonos</li><li>Estadística básica</li></ul></div>
+      <div class="grade-card"><div class="grade-label">5° Grado</div><div class="grade-title">Aplicando</div><ul class="grade-topics"><li>Operaciones con decimales</li><li>Razones y proporciones</li><li>Porcentajes</li><li>Volumen</li></ul></div>
+      <div class="grade-card"><div class="grade-label">6° Grado</div><div class="grade-title">Integrando</div><ul class="grade-topics"><li>Álgebra inicial</li><li>Estadística y probabilidad</li><li>Razones avanzadas</li><li>Geometría espacial</li></ul></div>
+    </div>
+  </div>
+  <div class="panama-bar"></div>
+  <div class="slide-num">10 / 12</div>
+</div>
+
+<!-- SLIDE 11: SOLICITUD -->
+<div class="slide">
+  <div class="slide-inner" style="align-items:center;justify-content:center;text-align:center">
+    <div class="eyebrow">Una solicitud sincera</div>
+    <h2>Yo construí la herramienta.<br><em>Ustedes tienen el conocimiento pedagógico.</em></h2>
+    <div class="accent-bar" style="margin:8px auto 10px"></div>
+    <p style="text-align:center;max-width:520px;margin:0 auto 16px">Soy estudiante, no experta en educación. Por eso su perspectiva como futuros maestros vale mucho más que la mía. ¿Me ayudarían a mejorarla?</p>
+    <div class="role-cards">
+      <div class="role-card"><div class="role-num">01</div><h3>Explorarla</h3><p>Úsenla libremente. ¿Qué funciona bien? ¿Qué se siente extraño o incompleto desde su perspectiva como futuros docentes?</p></div>
+      <div class="role-card"><div class="role-num">02</div><h3>Evaluarla</h3><p>¿Los contenidos y la progresión son pedagógicamente adecuados? Ustedes están formándose para saberlo mejor que yo.</p></div>
+      <div class="role-card"><div class="role-num">03</div><h3>Decirme qué falta</h3><p>Cualquier observación, por pequeña que sea, me ayudaría enormemente a mejorar esta herramienta.</p></div>
+    </div>
+  </div>
+  <div class="panama-bar"></div>
+  <div class="slide-num">11 / 12</div>
+</div>
+
+<!-- SLIDE 12: CIERRE -->
+<div class="slide">
+  <div class="slide-inner" style="align-items:center;justify-content:center;text-align:center">
+    <div class="eyebrow green">Gracias</div>
+    <h2>Construyamos juntos<br><em>el futuro matemático</em><br>de los niños de Panamá.</h2>
+    <div class="accent-bar" style="margin:8px auto 10px"></div>
+    <p style="text-align:center;max-width:480px;margin:0 auto 14px">Esto es solo el comienzo. Queremos que sea el inicio de una colaboración real, duradera y significativa.</p>
+    <div class="closing-links">
+      <a class="close-link" href="https://jy-matematica-panama.vercel.app/"><div class="lbl">Primaria · 1° – 6°</div><div class="url">jy-matematica-panama.vercel.app</div></a>
+      <a class="close-link" href="https://latidos-ninos.vercel.app/p/index.html"><div class="lbl">Preescolar</div><div class="url">latidos-ninos.vercel.app</div></a>
+    </div>
+    <div class="contact-row">
+      <span>jiyun.k.heartitude@gmail.com</span>
+      <span>Instagram: @heartitude_ba</span>
+    </div>
+  </div>
+  <div class="panama-bar"></div>
+  <div class="slide-num">12 / 12</div>
+</div>
+
+</body>
+</html>
