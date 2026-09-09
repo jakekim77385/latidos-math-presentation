@@ -608,6 +608,45 @@ export default function App() {
     return () => window.removeEventListener('keydown', handler)
   }, [goNext, goPrev])
 
+  // Touch swipe support for mobile
+  useEffect(() => {
+    let startX = 0
+    let startY = 0
+    let startTime = 0
+
+    const handleTouchStart = (e) => {
+      if (!e.touches || e.touches.length === 0) return
+      startX = e.touches[0].clientX
+      startY = e.touches[0].clientY
+      startTime = Date.now()
+    }
+
+    const handleTouchEnd = (e) => {
+      if (!e.changedTouches || e.changedTouches.length === 0) return
+      const endX = e.changedTouches[0].clientX
+      const endY = e.changedTouches[0].clientY
+      const dx = endX - startX
+      const dy = endY - startY
+      const elapsed = Date.now() - startTime
+
+      // Horizontal swipe dominant, at least 40px, under 800ms
+      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.3 && elapsed < 800) {
+        if (dx < 0) {
+          goNext()
+        } else {
+          goPrev()
+        }
+      }
+    }
+
+    window.addEventListener('touchstart', handleTouchStart, { passive: true })
+    window.addEventListener('touchend', handleTouchEnd, { passive: true })
+    return () => {
+      window.removeEventListener('touchstart', handleTouchStart)
+      window.removeEventListener('touchend', handleTouchEnd)
+    }
+  }, [goNext, goPrev])
+
   useEffect(() => {
     if (prev !== null) { const t = setTimeout(() => setPrev(null), 500); return () => clearTimeout(t) }
   }, [prev])
@@ -628,36 +667,18 @@ export default function App() {
       {/* Top left: fullscreen */}
       <button className="fullscreen-btn" onClick={toggleFullscreen}>⛶ {c.fullscreen}</button>
 
-      {/* Top right: language switcher */}
-      <div
-        style={{
-          position:'fixed', top:'1.5rem', right:'5.5rem',
-          background:'white', border:'1px solid var(--color-border)',
-          borderRadius:'var(--radius-sm)', padding:'3px',
-          zIndex:100, display:'flex', alignItems:'center', gap:'2px',
-          boxShadow:'var(--shadow-card)'
-        }}
-      >
+      {/* Top right: sleek language switcher */}
+      <div className="lang-switcher">
         {[
-          { id: 'ko', label: '🇰🇷 한국어' },
-          { id: 'es', label: '🇪🇸 Español' },
-          { id: 'en', label: '🇺🇸 English' },
+          { id: 'es', label: 'ES' },
+          { id: 'en', label: 'EN' },
+          { id: 'ko', label: 'KO' },
         ].map(item => (
           <button
             key={item.id}
+            className={`lang-btn ${lang === item.id ? 'active' : ''}`}
             onClick={() => changeLang(item.id)}
-            style={{
-              background: lang === item.id ? 'var(--color-primary)' : 'transparent',
-              color: lang === item.id ? '#ffffff' : 'var(--text-secondary)',
-              border: 'none',
-              borderRadius: '6px',
-              padding: '5px 10px',
-              fontSize: '0.78rem',
-              fontWeight: lang === item.id ? 700 : 500,
-              cursor: 'pointer',
-              transition: 'all 0.15s ease',
-              fontFamily: 'var(--font-body)'
-            }}
+            title={item.id === 'es' ? 'Español' : item.id === 'en' ? 'English' : '한국어'}
           >
             {item.label}
           </button>
