@@ -37,7 +37,7 @@ export const CONTENT_P2 = {
     ],
 
     // Slide 4 - Agenda 1
-    s3AgendaNum: '안건 01',
+    s3AgendaNum: 'Agenda 01',
     s3Eyebrow: 'Agenda 1 · Fortalecimiento del Contenido Teórico',
     s3Title: ['¿Cómo mejorar las explicaciones', 'conceptuales de cada unidad?'],
     s3Context: 'Actualmente la plataforma solo tiene texto y ejercicios. Los docentes sugirieron agregar videos explicativos.',
@@ -60,7 +60,7 @@ export const CONTENT_P2 = {
     ],
 
     // Slide 4 - Agenda 2
-    s4AgendaNum: '안건 02',
+    s4AgendaNum: 'Agenda 02',
     s4Eyebrow: 'Agenda 2 · Separación de Interfaces',
     s4Title: ['¿Debe haber un modo para estudiantes', 'y otro para docentes?'],
     s4Context: 'Actualmente todos ven la misma interfaz. ¿Tendría sentido ofrecer vistas diferenciadas?',
@@ -83,7 +83,7 @@ export const CONTENT_P2 = {
     ],
 
     // Slide 5 - Agenda 3
-    s5AgendaNum: '안건 03',
+    s5AgendaNum: 'Agenda 03',
     s5Eyebrow: 'Agenda 3 · Sistema de Inicio de Sesión',
     s5Title: ['¿Cómo deberían los usuarios', 'acceder a la plataforma?'],
     s5Context: 'Actualmente la plataforma está abierta a todos. Pero a medida que avancemos, podríamos crear accesos exclusivos para quienes estamos aquí, haciendo de esto nuestro proyecto.',
@@ -106,7 +106,7 @@ export const CONTENT_P2 = {
     ],
 
     // Slide 6 - Agenda 4
-    s6AgendaNum: '안건 04',
+    s6AgendaNum: 'Agenda 04',
     s6Eyebrow: 'Propuesta adicional 1 · Comunicación y Proceso',
     s6Title: ['Para llevar este proceso juntos,', 'primero necesitamos comunicarnos.'],
     s6Context: 'Este proyecto es un camino que construimos juntos. Empezando por Instagram, conversemos libremente sobre la comunicación y el proceso de trabajo.',
@@ -133,7 +133,7 @@ export const CONTENT_P2 = {
     sqrSub: 'Escaneen este código QR para seguir a @heartitude_ba',
 
     // Slide 8 - Agenda 5
-    s7AgendaNum: '안건 05',
+    s7AgendaNum: 'Agenda 05',
     s7Eyebrow: 'Propuesta adicional 2 · Coordinación de Calendario',
     s7Title: ['¿Cuándo pueden ustedes', 'dedicarle tiempo al proyecto?'],
     s7Context: 'Para planificar los próximos pasos, necesitamos saber cómo están sus tiempos. Con esa información podemos avanzar.',
