@@ -10,9 +10,12 @@ const outputDir = path.join(__dirname, 'pdfs');
 if (!fs.existsSync(outputDir)) fs.mkdirSync(outputDir);
 
 const files = [
-  { input: 'slides-es.html', output: 'presentacion-es.pdf', lang: 'Español' },
-  { input: 'slides-ko.html', output: 'presentacion-ko.pdf', lang: '한국어' },
-  { input: 'slides-en.html', output: 'presentacion-en.pdf', lang: 'English' },
+  { input: 'slides-es.html', output: 'presentacion-es.pdf', lang: '1회차 Español' },
+  { input: 'slides-ko.html', output: 'presentacion-ko.pdf', lang: '1회차 한국어' },
+  { input: 'slides-en.html', output: 'presentacion-en.pdf', lang: '1회차 English' },
+  { input: 'slides-p2-es.html', output: 'presentacion2-es.pdf', lang: '2회차 Español' },
+  { input: 'slides-p2-ko.html', output: 'presentacion2-ko.pdf', lang: '2회차 한국어' },
+  { input: 'slides-p2-en.html', output: 'presentacion2-en.pdf', lang: '2회차 English' },
 ];
 
 console.log('🚀 Launching browser...');

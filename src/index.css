@@ -1214,11 +1214,48 @@ body {
   .contact-item {
     font-size: 0.82rem !important;
   }
+
+  /* Presentation 2 mobile grids */
+  .p2-inquiry-grid,
+  .p2-pillars-grid,
+  .p2-phases-grid,
+  .p2-models-grid,
+  .p2-eng-grid,
+  .p2-compare-grid,
+  .p2-steps-grid,
+  .p2-equity-grid,
+  .p2-timeline-grid,
+  .p2-discussion-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+
+  .p2-format-box {
+    max-width: 100%;
+    padding: 1.2rem 1rem;
+  }
+
+  .p2-agenda-context {
+    font-size: 0.82rem;
+    padding: 0.5rem 0.8rem;
+  }
+
+  .deck-switcher {
+    top: 3.2rem !important;
+    max-width: 90vw;
+  }
+
+  .deck-btn {
+    padding: 4px 8px !important;
+    font-size: 0.68rem !important;
+  }
 }
 
 @media (max-width: 480px) {
   .slide {
-    padding: 4.5rem 0.9rem 5.5rem 0.9rem;
+    padding: 4.8rem 0.9rem 5.5rem 0.9rem;
   }
 
   .fullscreen-btn {
@@ -1231,3 +1268,818 @@ body {
   }
 }
 
+/* ===========================
+   DECK / PRESENTATION SWITCHER
+   =========================== */
+.deck-switcher {
+  position: fixed;
+  top: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  padding: 3px;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  box-shadow: 0 4px 20px rgba(0, 48, 135, 0.08);
+}
+
+.deck-btn {
+  background: transparent;
+  color: var(--text-secondary);
+  border: none;
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 0.76rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  font-family: var(--font-body);
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.deck-btn:hover:not(.active) {
+  color: var(--color-primary);
+  background: rgba(0, 48, 135, 0.05);
+}
+
+.deck-btn.active {
+  background: linear-gradient(135deg, var(--panama-blue), #002266);
+  color: #ffffff;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(0, 48, 135, 0.25);
+}
+
+.edition-badge-pill {
+  display: inline-flex;
+  align-items: center;
+  background: var(--panama-red-light);
+  color: var(--panama-red);
+  border: 1px solid rgba(194, 30, 45, 0.25);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 2px 9px;
+  border-radius: 100px;
+  letter-spacing: 0.03em;
+  margin-left: 6px;
+}
+
+/* ===========================
+   PRESENTATION 2 SLIDES STYLES
+   =========================== */
+
+/* Slide 2: Inquiries */
+.p2-inquiry-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.4rem;
+  max-width: 1020px;
+  width: 100%;
+}
+
+.p2-inquiry-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 1.8rem 1.5rem;
+  box-shadow: var(--shadow-card);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.p2-inquiry-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.p2-inquiry-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.p2-inquiry-num {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--panama-red);
+  opacity: 0.9;
+}
+
+.p2-inquiry-tag {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--panama-blue);
+  background: var(--panama-blue-light);
+  padding: 3px 8px;
+  border-radius: 100px;
+}
+
+.p2-inquiry-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 0.7rem;
+}
+
+.p2-inquiry-card p {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* Slide 3: Pillars */
+.p2-pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  max-width: 1060px;
+  width: 100%;
+}
+
+.p2-pillar-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 2rem 1.6rem;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+}
+
+.p2-pillar-1 { border-top: 4px solid var(--panama-blue); }
+.p2-pillar-2 { border-top: 4px solid var(--panama-red); }
+.p2-pillar-3 { border-top: 4px solid var(--color-green); }
+
+.p2-pillar-icon {
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+}
+
+.p2-pillar-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 0.7rem;
+}
+
+.p2-pillar-card p {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* Slide 4: Phases */
+.p2-phases-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.4rem;
+  max-width: 1080px;
+  width: 100%;
+}
+
+.p2-phase-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 1.8rem 1.5rem;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+}
+
+.p2-phase-blue { border-top: 4px solid var(--panama-blue); }
+.p2-phase-red { border-top: 4px solid var(--panama-red); }
+.p2-phase-green { border-top: 4px solid var(--color-green); }
+
+.p2-phase-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.9rem;
+  gap: 8px;
+}
+
+.p2-phase-time {
+  font-size: 0.76rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: 0.04em;
+}
+
+.p2-phase-tool {
+  font-size: 0.68rem;
+  font-weight: 700;
+  background: var(--color-bg2);
+  color: var(--panama-blue);
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+
+.p2-phase-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 0.7rem;
+}
+
+.p2-phase-card p {
+  font-size: 0.86rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* Slide 5: Models */
+.p2-models-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.4rem;
+  max-width: 1080px;
+  width: 100%;
+}
+
+.p2-model-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 1.8rem 1.5rem;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+}
+
+.p2-model-0 { border-top: 4px solid var(--panama-blue); }
+.p2-model-1 { border-top: 4px solid var(--panama-red); }
+.p2-model-2 { border-top: 4px solid var(--color-green); }
+
+.p2-model-badge {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--panama-blue);
+  margin-bottom: 0.4rem;
+}
+
+.p2-model-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 0.3rem;
+}
+
+.p2-model-sub {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-bottom: 0.8rem;
+  font-weight: 500;
+}
+
+.p2-model-card p {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 1.2rem;
+  flex-grow: 1;
+}
+
+.p2-model-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* Slide 6: Engineering */
+.p2-eng-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.2rem;
+  max-width: 980px;
+  width: 100%;
+}
+
+.p2-eng-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 1.4rem 1.6rem;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  align-items: flex-start;
+  gap: 1.2rem;
+}
+
+.p2-eng-icon {
+  font-size: 1.8rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.p2-eng-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 0.4rem;
+}
+
+.p2-eng-card p {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+}
+
+/* Slide 7: Comparison */
+.p2-compare-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.8rem;
+  max-width: 1040px;
+  width: 100%;
+}
+
+.p2-compare-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 1.8rem;
+  box-shadow: var(--shadow-card);
+}
+
+.p2-compare-before {
+  border-top: 4px solid var(--panama-red);
+  background: linear-gradient(180deg, rgba(194, 30, 45, 0.02) 0%, var(--color-surface) 100%);
+}
+
+.p2-compare-after {
+  border-top: 4px solid var(--panama-blue);
+  background: linear-gradient(180deg, rgba(0, 48, 135, 0.03) 0%, var(--color-surface) 100%);
+}
+
+.p2-compare-tag {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+}
+
+.p2-compare-before .p2-compare-tag { color: var(--panama-red); }
+.p2-compare-after .p2-compare-tag { color: var(--panama-blue); }
+
+.p2-compare-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 800;
+  margin-bottom: 1.2rem;
+  color: var(--text-primary);
+}
+
+.p2-compare-card ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.p2-compare-card li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.86rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.p2-compare-bullet {
+  font-weight: 900;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.p2-compare-before .p2-compare-bullet { color: var(--panama-red); }
+.p2-compare-after .p2-compare-bullet { color: var(--color-green); }
+
+/* Slide 8: Steps */
+.p2-steps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  max-width: 1060px;
+  width: 100%;
+}
+
+.p2-step-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 2rem 1.6rem;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.p2-step-circle {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--panama-blue), var(--panama-red));
+  color: white;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.1rem;
+  box-shadow: 0 4px 12px rgba(0, 48, 135, 0.2);
+}
+
+.p2-step-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 0.7rem;
+}
+
+.p2-step-card p {
+  font-size: 0.86rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* Slide 9: Equity */
+.p2-equity-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  max-width: 1040px;
+  width: 100%;
+}
+
+.p2-equity-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 1.8rem 1.5rem;
+  box-shadow: var(--shadow-card);
+  border-top: 3px solid var(--panama-blue);
+}
+
+.p2-equity-icon {
+  font-size: 1.8rem;
+  display: inline-block;
+  margin-bottom: 0.8rem;
+}
+
+.p2-equity-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 0.6rem;
+}
+
+.p2-equity-card p {
+  font-size: 0.86rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* Slide 10: Timeline */
+.p2-timeline-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.4rem;
+  max-width: 1060px;
+  width: 100%;
+}
+
+.p2-timeline-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 1.8rem 1.5rem;
+  box-shadow: var(--shadow-card);
+  position: relative;
+}
+
+.p2-timeline-period {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--panama-blue);
+  background: var(--panama-blue-light);
+  padding: 3px 9px;
+  border-radius: 100px;
+  margin-bottom: 0.8rem;
+  letter-spacing: 0.04em;
+}
+
+.p2-timeline-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 0.6rem;
+}
+
+.p2-timeline-card p {
+  font-size: 0.86rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* Slide 11: Quote */
+.p2-quote-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-left: 4px solid var(--panama-blue);
+  border-radius: var(--radius-md);
+  padding: 2rem 2.5rem;
+  max-width: 780px;
+  margin: 0 auto;
+  box-shadow: var(--shadow-md);
+  position: relative;
+}
+
+.p2-quote-mark {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  line-height: 1;
+  color: var(--panama-blue);
+  opacity: 0.3;
+  position: absolute;
+  top: 0.8rem;
+  left: 1.2rem;
+}
+
+.p2-quote-text {
+  font-size: clamp(1.05rem, 1.4vw, 1.35rem);
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.6;
+  font-style: italic;
+  position: relative;
+  z-index: 1;
+}
+
+/* ===========================
+   PRESENTATION 2: DISCUSSION FORMAT STYLES
+   =========================== */
+
+/* Slide 2: Context & Format */
+.p2-context-recap {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  text-align: center;
+  max-width: 720px;
+  line-height: 1.65;
+  margin-bottom: 1.4rem;
+}
+
+.p2-endorsement {
+  margin-top: 1.2rem;
+  padding: 0.7rem 1.4rem;
+  font-size: 0.82rem;
+  font-style: italic;
+  font-weight: 500;
+  color: var(--panama-blue);
+  background: rgba(0, 48, 135, 0.04);
+  border-left: 3px solid var(--panama-blue);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  max-width: 580px;
+  text-align: left;
+  line-height: 1.55;
+}
+
+/* Slide 3: Agenda Overview */
+.p2-overview-container {
+  max-width: 640px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.p2-overview-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.p2-overview-label {
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--panama-blue);
+  padding-bottom: 0.4rem;
+  border-bottom: 2px solid var(--panama-blue);
+  margin-bottom: 0.3rem;
+}
+
+.p2-overview-label-new {
+  color: var(--panama-red);
+  border-bottom-color: var(--panama-red);
+}
+
+.p2-overview-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1.2rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  border-left: 4px solid var(--panama-blue);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.p2-overview-item:hover {
+  transform: translateX(4px);
+  box-shadow: var(--shadow-card);
+}
+
+.p2-overview-new {
+  border-left-color: var(--panama-red);
+}
+
+.p2-overview-num {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 900;
+  color: #fff;
+  background: var(--panama-blue);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.p2-overview-new .p2-overview-num {
+  background: var(--panama-red);
+}
+
+.p2-overview-title {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.p2-format-box {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 1.6rem 2rem;
+  max-width: 580px;
+  width: 100%;
+  box-shadow: var(--shadow-card);
+}
+
+.p2-format-title {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+.p2-format-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0.5rem 0;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.p2-format-icon {
+  font-size: 1.3rem;
+  flex-shrink: 0;
+}
+
+/* Agenda Badge */
+.p2-agenda-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--panama-blue), var(--panama-red));
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 900;
+  padding: 6px 18px;
+  border-radius: 100px;
+  margin-bottom: 0.8rem;
+  letter-spacing: 0.08em;
+  box-shadow: 0 4px 14px rgba(0, 48, 135, 0.25);
+}
+
+/* Agenda Context Paragraph */
+.p2-agenda-context {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  text-align: center;
+  max-width: 740px;
+  line-height: 1.6;
+  margin-bottom: 1.4rem;
+  padding: 0.6rem 1.2rem;
+  background: rgba(0, 48, 135, 0.03);
+  border: 1px dashed rgba(0, 48, 135, 0.12);
+  border-radius: var(--radius-md);
+}
+
+/* Discussion Card Grid */
+.p2-discussion-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.3rem;
+  max-width: 1060px;
+  width: 100%;
+}
+
+.p2-discussion-card {
+  background: var(--color-surface);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 1.6rem 1.4rem 1.2rem;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.p2-discussion-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--panama-blue);
+}
+
+.p2-discussion-icon {
+  font-size: 2.2rem;
+  margin-bottom: 0.8rem;
+  display: block;
+}
+
+.p2-discussion-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 0.6rem;
+}
+
+.p2-discussion-card p {
+  font-size: 0.84rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+  flex-grow: 1;
+}
+
+.p2-discussion-cta {
+  margin-top: 1rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--panama-blue), rgba(0, 48, 135, 0.7));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  box-shadow: 0 3px 10px rgba(0, 48, 135, 0.2);
+  animation: p2-cta-pulse 2s ease-in-out infinite;
+}
+
+@keyframes p2-cta-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.85; }
+  50% { transform: scale(1.12); opacity: 1; }
+}

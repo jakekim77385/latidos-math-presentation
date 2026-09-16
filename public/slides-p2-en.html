@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mathematics for Panama — 2nd Presentation (English)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #003087; --red: #c21e2d; --bg: #f8f7f4; --surface: #ffffff;
+    --border: #e2e0db; --text: #1a1a2e; --text2: #4a4a6a; --text3: #8a8aaa; --green: #1a7f4b;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: #ddd; }
+  @media print {
+    body { background: white; }
+    .no-print { display: none !important; }
+    .slide { page-break-after: always; box-shadow: none !important; }
+    .slide:last-child { page-break-after: avoid; }
+    @page { size: A4 landscape; margin: 0; }
+  }
+  .no-print { position: fixed; top: 1rem; right: 1rem; z-index: 999; }
+  .no-print button { background: var(--blue); color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-family: 'Inter', sans-serif; font-size: 0.88rem; font-weight: 600; }
+  .slide { width: 297mm; height: 210mm; background: var(--bg); display: flex; flex-direction: column; position: relative; overflow: hidden; margin: 0 auto 12px; box-shadow: 0 4px 24px rgba(0,0,0,0.15); padding: 14mm 18mm; }
+  .slide-inner { position: relative; z-index: 1; height: 100%; display: flex; flex-direction: column; }
+  .slide-num { position: absolute; top: 6mm; right: 8mm; font-size: 7pt; color: var(--text3); }
+  .panama-bar { position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--blue) 50%, var(--red) 50%); }
+  .eyebrow { display: inline-block; font-size: 6.5pt; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text3); margin-bottom: 4px; }
+  .eyebrow.red { color: var(--red); }
+  .eyebrow.green { color: var(--green); }
+  .accent-bar { width: 32px; height: 3px; background: linear-gradient(90deg, var(--blue), var(--red)); border-radius: 100px; margin: 5px 0 10px; }
+  h1 { font-family: 'Outfit', sans-serif; font-size: 22pt; font-weight: 900; line-height: 1.15; color: var(--text); }
+  h1 em { font-style: normal; color: var(--blue); }
+  h2 { font-family: 'Outfit', sans-serif; font-size: 16pt; font-weight: 800; line-height: 1.25; color: var(--text); }
+  h2 em { font-style: normal; color: var(--blue); }
+  h2 em.red { color: var(--red); }
+  h3 { font-family: 'Outfit', sans-serif; font-size: 9.5pt; font-weight: 700; color: var(--text); margin-bottom: 3px; }
+  p { font-size: 8pt; color: var(--text2); line-height: 1.6; }
+  p strong { color: var(--text); font-weight: 700; }
+  .title-org-row { display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 12px; }
+  .title-org-row span { font-size: 8pt; color: var(--text3); }
+  .title-sub { font-size: 8.5pt; color: var(--text2); margin-bottom: 16px; }
+  .author-card { display: inline-flex; flex-direction: column; align-items: center; text-align: center; background: white; border: 1px solid var(--border); border-radius: 10px; padding: 8px 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
+  .author-info h3 { font-size: 9pt; margin-bottom: 1px; }
+  .author-info p { font-size: 7.5pt; color: var(--text3); }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px; }
+  .card { background: white; border: 1px solid var(--border); border-radius: 8px; padding: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
+  .card.blue { border-top: 3px solid var(--blue); }
+  .card.red { border-top: 3px solid var(--red); }
+  .card.green { border-top: 3px solid var(--green); }
+  .card-num { font-size: 13pt; font-weight: 900; color: var(--red); margin-bottom: 4px; }
+  .card-tag { font-size: 6pt; font-weight: 700; text-transform: uppercase; background: rgba(0,48,135,0.08); color: var(--blue); padding: 2px 6px; border-radius: 100px; display: inline-block; margin-bottom: 5px; }
+  .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 10px; }
+  .compare-card { background: white; border: 1px solid var(--border); border-radius: 8px; padding: 12px; }
+  .compare-card.before { border-top: 3px solid var(--red); }
+  .compare-card.after { border-top: 3px solid var(--blue); }
+  .compare-list { list-style: none; margin-top: 6px; }
+  .compare-list li { font-size: 7.5pt; color: var(--text2); line-height: 1.55; margin-bottom: 4px; padding-left: 12px; position: relative; }
+  .compare-list li.bad::before { content: '✕'; position: absolute; left: 0; color: var(--red); font-weight: 700; }
+  .compare-list li.good::before { content: '✓'; position: absolute; left: 0; color: var(--green); font-weight: 700; }
+  .quote-box { background: white; border-left: 4px solid var(--blue); border-radius: 8px; padding: 14px 18px; margin: 16px auto; max-width: 620px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); text-align: center; }
+  .quote-box p { font-size: 9.5pt; font-weight: 600; color: var(--text); font-style: italic; line-height: 1.6; }
+  .closing-links { display: flex; gap: 10px; justify-content: center; margin: 12px 0; }
+  .close-link { background: white; border: 1px solid var(--border); border-radius: 8px; padding: 9px 14px; text-decoration: none; min-width: 140px; }
+  .close-link .lbl { font-size: 6.5pt; font-weight: 700; text-transform: uppercase; color: var(--blue); margin-bottom: 2px; }
+  .close-link .url { font-size: 7pt; color: var(--text2); }
+  .contact-row { display: flex; gap: 20px; justify-content: center; margin-top: 10px; }
+  .contact-row span { font-size: 8pt; color: var(--text2); }
+  .badge-p2 { background: rgba(194,30,45,0.1); color: var(--red); border: 1px solid rgba(194,30,45,0.2); font-size: 6.5pt; font-weight: 700; padding: 2px 6px; border-radius: 100px; }
+</style>
+</head>
+<body>
+<div class="no-print">
+  <button onclick="window.print()">🖨️ Save as PDF (Ctrl+P)</button>
+</div>
+
+<!-- SLIDE 1 -->
+<div class="slide">
+  <div class="slide-inner" style="align-items:center;justify-content:center;text-align:center">
+    <div class="title-org-row"><span>Club Heartitude · Panama 2026</span><span class="badge-p2">2nd Presentation</span></div>
+    <h1>From Idea to Classroom:<br><em>Implementation Guide & Collaboration</em></h1>
+    <div class="accent-bar" style="margin:10px auto 12px"></div>
+    <p class="title-sub">Pedagogical classroom implementation model · Collaborative partnership with teachers · MEDUCA 2024</p>
+    <div class="author-card">
+      <div class="author-info">
+        <h3>Jiyun Kim</h3>
+        <p>Instagram: @heartitude_ba</p>
+      </div>
+    </div>
+  </div>
+  <div class="panama-bar"></div><div class="slide-num">1 / 12</div>
+</div>
+
+<!-- SLIDE 2 -->
+<div class="slide">
+  <div class="slide-inner">
+    <div class="eyebrow red">Voices from the 1st Session · What We Heard</div>
+    <h2>How does the platform land<br><em class="red">in the reality of my classroom?</em></h2>
+    <div class="accent-bar"></div>
+    <p style="margin-bottom:8px">After presenting the tool to educators, three genuine and crucial questions emerged:</p>
+    <div class="grid-3">
+      <div class="card"><div class="card-num">01</div><span class="card-tag">Instructional Time</span><h3>Lesson time management</h3><p>How do we integrate digital activities into a 45-minute lesson without losing instructional rhythm?</p></div>
+      <div class="card"><div class="card-num">02</div><span class="card-tag">Infrastructure</span><h3>Device disparity</h3><p>How can this be applied if the school lacks a tablet or computer for every single student?</p></div>
+      <div class="card"><div class="card-num">03</div><span class="card-tag">Differentiation</span><h3>Divergent learning paces</h3><p>How do we respond when some children excel quickly while others still struggle with addition?</p></div>
+    </div>
+  </div>
+  <div class="panama-bar"></div><div class="slide-num">2 / 12</div>
+</div>
+
+<!-- SLIDE 3 -->
+<div class="slide">
+  <div class="slide-inner">
+    <div class="eyebrow">Core Design Principles</div>
+    <h2>Technology does not teach alone:<br><em>teachers are irreplaceable</em></h2>
+    <div class="accent-bar"></div>
+    <p style="margin-bottom:8px">The platform does not replace instruction; it frees teachers from repetitive mechanical drills so they can focus on human teaching.</p>
+    <div class="grid-3">
+      <div class="card blue"><h3>👨‍🏫 Teacher guides</h3><p><strong>Pedagogical leadership:</strong> Sets learning goals, models reasoning, asks reflective questions, and provides encouraging warmth.</p></div>
+      <div class="card red"><h3>⚡ Platform trains</h3><p><strong>Infinite practice:</strong> Generates unlimited tailored practice with instant feedback and eliminates the burden of marking sheets.</p></div>
+      <div class="card green"><h3>🤝 Individual support</h3><p><strong>Saved time:</strong> Saved teacher time is channeled into 5 minutes of focused 1-on-1 tutoring for struggling learners.</p></div>
+    </div>
+  </div>
+  <div class="panama-bar"></div><div class="slide-num">3 / 12</div>
+</div>
+
+<!-- SLIDE 4 -->
+<div class="slide">
+  <div class="slide-inner">
+    <div class="eyebrow green">Didactic Structure</div>
+    <h2>3-Phase Lesson Model (45 min)</h2>
+    <div class="accent-bar"></div>
+    <p style="margin-bottom:8px">A clear, practical framework to integrate the digital platform into everyday classroom flow:</p>
+    <div class="grid-3">
+      <div class="card blue"><span class="card-tag">Phase 1 · 5 to 7 min</span><h3>Conceptual Kickoff</h3><p><strong>Learn & Vocabulary:</strong> Whole-class activation. The teacher reviews a key math term and visual example to anchor the core concept.</p></div>
+      <div class="card red"><span class="card-tag">Phase 2 · 25 to 28 min</span><h3>Differentiated Practice</h3><p><strong>Practice:</strong> Active problem solving. Students work at their own level with immediate verification while the teacher circulates and assists.</p></div>
+      <div class="card green"><span class="card-tag">Phase 3 · 8 to 10 min</span><h3>Consolidation & Games</h3><p><strong>Evaluate / Game Zone:</strong> Quick 5-question check or exciting Speed Blitz challenge to close the session with accomplishment.</p></div>
+    </div>
+  </div>
+  <div class="panama-bar"></div><div class="slide-num">4 / 12</div>
+</div>
+
+<!-- SLIDE 5 -->
+<div class="slide">
+  <div class="slide-inner">
+    <div class="eyebrow">Practical Flexibility</div>
+    <h2>3 models for varying school settings</h2>
+    <div class="accent-bar"></div>
+    <div class="grid-3">
+      <div class="card blue"><span class="card-tag">Model A</span><h3>1:1 Digital Lab</h3><p>Each student progresses at their own custom speed. Ideal for weekly reinforcement and individualized assessment.</p></div>
+      <div class="card red"><span class="card-tag">Model B</span><h3>Interactive Single Screen</h3><p>1 projector or laptop. Teacher projects challenges; students solve on paper or compete in team rounds.</p></div>
+      <div class="card green"><span class="card-tag">Model C</span><h3>Home Extension</h3><p>In-class work remains traditional; the platform becomes engaging homework requiring minimal mobile data.</p></div>
+    </div>
+  </div>
+  <div class="panama-bar"></div><div class="slide-num">5 / 12</div>
+</div>
+
+<!-- SLIDE 6 -->
+<div class="slide">
+  <div class="slide-inner">
+    <div class="eyebrow">Classroom-Ready Engineering</div>
+    <h2>Engineered specifically for the realities of Panamanian schools</h2>
+    <div class="accent-bar"></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px">
+      <div class="card"><h3>🚀 Zero Installation</h3><p>Runs instantly in any modern browser. Never clutters low-storage school devices with cumbersome software.</p></div>
+      <div class="card"><h3>📶 Ultra-lightweight (&lt; 1MB)</h3><p>Pure high-efficiency web stack. Loads in under one second even over weak 3G cellular reception.</p></div>
+      <div class="card"><h3>🎯 100% DFA 2024 Aligned</h3><p>Directly follows official MEDUCA curriculum units. Perfectly mirrors standard textbook sequences.</p></div>
+      <div class="card"><h3>✨ Constructive Feedback</h3><p>Errors never punish: friendly visual hints guide students to retry until the procedure clicks.</p></div>
+    </div>
+  </div>
+  <div class="panama-bar"></div><div class="slide-num">6 / 12</div>
+</div>
+
+<!-- SLIDE 7 -->
+<div class="slide">
+  <div class="slide-inner">
+    <div class="eyebrow red">Concrete Classroom Example</div>
+    <h2>Case study: Times Tables & Fractions (Grades 3 & 4)</h2>
+    <div class="accent-bar"></div>
+    <div class="compare-grid">
+      <div class="compare-card before">
+        <h3 style="color:var(--red)">⚠️ Before · Traditional Drill</h3>
+        <ul class="compare-list">
+          <li class="bad">15 min copying practice equations from board to paper</li>
+          <li class="bad">Fast students finish early and grow restless</li>
+          <li class="bad">Struggling students copy neighbor answers without insight</li>
+          <li class="bad">Teacher takes 35 heavy notebooks home to mark by hand</li>
+        </ul>
+      </div>
+      <div class="compare-card after">
+        <h3 style="color:var(--blue)">✨ With Platform · Dynamic Workshop</h3>
+        <ul class="compare-list">
+          <li class="good">3 min warm-up with Speed Blitz: instant enthusiasm</li>
+          <li class="good">Visual fraction bar model (Learn) anchors deep understanding</li>
+          <li class="good">Teacher dedicates 15 uninterrupted minutes to 4 fragile learners</li>
+          <li class="good">Instant automatic verification, zero homework grading load</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="panama-bar"></div><div class="slide-num">7 / 12</div>
+</div>
+
+<!-- SLIDE 8 -->
+<div class="slide">
+  <div class="slide-inner">
+    <div class="eyebrow green">Collective Co-creation</div>
+    <h2>Collaborative development with teachers</h2>
+    <div class="accent-bar"></div>
+    <div class="grid-3">
+      <div class="card"><div class="card-num">01</div><h3>Classroom trials</h3><p>Teachers and student teachers conduct brief 15–20 minute sessions and observe student engagement directly.</p></div>
+      <div class="card"><div class="card-num">02</div><h3>Co-designed lesson guides</h3><p>Collaborative creation of short teaching guides connecting digital practice with tangible hands-on math.</p></div>
+      <div class="card"><div class="card-num">03</div><h3>Rapid feature refinement</h3><p>Teacher feedback on vocabulary, variety, and difficulty curves is built into rapid platform updates.</p></div>
+    </div>
+  </div>
+  <div class="panama-bar"></div><div class="slide-num">8 / 12</div>
+</div>
+
+<!-- SLIDE 9 -->
+<div class="slide">
+  <div class="slide-inner">
+    <div class="eyebrow">Educational Equity</div>
+    <h2>Early intervention: so no child is left behind</h2>
+    <div class="accent-bar"></div>
+    <div class="grid-3">
+      <div class="card blue"><h3>🔍 Low-stress diagnosis</h3><p>The "Evaluate" module identifies specific stumbling blocks without the anxiety of high-stakes testing.</p></div>
+      <div class="card blue"><h3>🔁 Targeted revision</h3><p>If a student struggles with regrouping, the system guides them back to the exact conceptual lesson in Learn.</p></div>
+      <div class="card blue"><h3>🌱 Restoring math confidence</h3><p>Daily small milestones celebrate growth, re-igniting the conviction that "I can do math."</p></div>
+    </div>
+  </div>
+  <div class="panama-bar"></div><div class="slide-num">9 / 12</div>
+</div>
+
+<!-- SLIDE 10 -->
+<div class="slide">
+  <div class="slide-inner">
+    <div class="eyebrow">Implementation Roadmap</div>
+    <h2>Proposed 2026 Pilot Timeline</h2>
+    <div class="accent-bar"></div>
+    <div class="grid-3">
+      <div class="card"><span class="card-tag">Stage 1 · Months 1–2</span><h3>Teacher Workshops</h3><p>Hands-on orientation with volunteer educators and education majors. Pilot launch across 5–10 classrooms.</p></div>
+      <div class="card"><span class="card-tag">Stage 2 · Months 3–4</span><h3>Mid-term Review</h3><p>Collaborative sessions to examine what worked best, review analytics, and implement requested features.</p></div>
+      <div class="card"><span class="card-tag">Stage 3 · Months 5–6</span><h3>Open Didactic Guide</h3><p>Publishing the shared "Best Practices Handbook" and opening access to wider interested schools.</p></div>
+    </div>
+  </div>
+  <div class="panama-bar"></div><div class="slide-num">10 / 12</div>
+</div>
+
+<!-- SLIDE 11 -->
+<div class="slide">
+  <div class="slide-inner" style="align-items:center;justify-content:center;text-align:center">
+    <div class="eyebrow red">Sincere Commitment</div>
+    <h2>Algorithms do not inspire;<br><em>teachers do.</em></h2>
+    <div class="accent-bar" style="margin:8px auto 10px"></div>
+    <div class="quote-box">
+      <p>"Software can check multiplication in a millisecond, but only a teacher can look into a student's eyes and say: 'I believe in you.'"</p>
+    </div>
+    <p style="text-align:center;max-width:520px;margin:10px auto 0">Our promise: this resource will remain 100% free, ad-free, and dedicated to supporting Panamanian educators.</p>
+  </div>
+  <div class="panama-bar"></div><div class="slide-num">11 / 12</div>
+</div>
+
+<!-- SLIDE 12 -->
+<div class="slide">
+  <div class="slide-inner" style="align-items:center;justify-content:center;text-align:center">
+    <div class="eyebrow green">Open Invitation</div>
+    <h2>Let's build this future<br><em>together in the classroom.</em></h2>
+    <div class="accent-bar" style="margin:8px auto 10px"></div>
+    <p style="text-align:center;max-width:500px;margin:0 auto 12px">Open invitation for teachers, school leaders, and education student teachers.</p>
+    <div class="closing-links">
+      <a class="close-link" href="https://jy-matematica-panama.vercel.app/"><div class="lbl">Elementary · Grades 1–6</div><div class="url">jy-matematica-panama.vercel.app</div></a>
+      <a class="close-link" href="https://latidos-ninos.vercel.app/p/index.html"><div class="lbl">Preschool</div><div class="url">latidos-ninos.vercel.app</div></a>
+    </div>
+    <div class="contact-row">
+      <span>jiyun.k.heartitude@gmail.com</span>
+      <span>Instagram: @heartitude_ba</span>
+    </div>
+  </div>
+  <div class="panama-bar"></div><div class="slide-num">12 / 12</div>
+</div>
+
+</body>
+</html>

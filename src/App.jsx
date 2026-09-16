@@ -1,5 +1,21 @@
 import { useState, useEffect, useCallback } from 'react'
 import './index.css'
+import { CONTENT_P2 } from './data/presentation2.js'
+import * as P2 from './components/Presentation2Slides.jsx'
+import { PanamaFlag } from './components/PanamaFlag.jsx'
+
+const P2_SLIDE_COMPS = [
+  P2.P2Slide1,
+  P2.P2Slide2,
+  P2.P2SlideOverview,
+  P2.P2Slide3,
+  P2.P2Slide4,
+  P2.P2Slide5,
+  P2.P2Slide6,
+  P2.P2SlideQR,
+  P2.P2Slide7,
+  P2.P2Slide8,
+]
 
 // ─── CONTENT (ES / EN) ──────────────────────────────────────
 const CONTENT = {
@@ -8,8 +24,8 @@ const CONTENT = {
     org: 'Club Heartitude · Panamá 2026',
     titleMain: ['Matemáticas para Panamá:', 'Una herramienta nacida del aula'],
     titleSub: 'Plataformas digitales gratuitas · Basadas en MEDUCA 2024 · Preescolar y Primaria 1° – 6°',
-    authorName: 'Jiyun Kim',
-    authorRole: 'Instagram: @heartitude_ba',
+    authorName: 'Jiyun Kim · Julio Carballeda',
+    authorRole: 'Club Heartitude · Instagram: @heartitude_ba',
     // Slide 2
     s2Eyebrow: 'El punto de partida · Panamá, 2021',
     s2Title: ['Llegué a Panamá.', 'Y algo llamó mi atención.'],
@@ -114,8 +130,8 @@ const CONTENT = {
     org: 'Club Heartitude · Panama 2026',
     titleMain: ['Mathematics for Panama:', 'A Tool Born from the Classroom'],
     titleSub: 'Free digital platforms · Based on MEDUCA 2024 · Preschool and Elementary Grades 1–6',
-    authorName: 'Jiyun Kim',
-    authorRole: 'Instagram: @heartitude_ba',
+    authorName: 'Jiyun Kim · Julio Carballeda',
+    authorRole: 'Club Heartitude · Instagram: @heartitude_ba',
     s2Eyebrow: 'The starting point · Panama, 2021',
     s2Title: ['I arrived in Panama.', 'And something caught my attention.'],
     s2Scene1: ['At a café, I paid and received change. ', 'Something didn\'t add up.', ' I counted again — it was wrong.'],
@@ -209,8 +225,8 @@ const CONTENT = {
     org: 'Club Heartitude · 파나마 2026',
     titleMain: ['파나마의 수학:', '교실에서 탄생한 도구'],
     titleSub: '무료 디지털 플랫폼 · MEDUCA 2024 기반 · 유아 및 초등 1~6학년',
-    authorName: '김지윤 (Jiyun Kim)',
-    authorRole: 'Instagram: @heartitude_ba',
+    authorName: '김지윤 (Jiyun Kim) · Julio Carballeda',
+    authorRole: 'Club Heartitude · Instagram: @heartitude_ba',
     s2Eyebrow: '시작점 · 파나마, 2021',
     s2Title: ['파나마에 왔습니다.', '그리고 무언가가 눈에 띄었습니다.'],
     s2Scene1: ['카페에서 커피값을 내고 거스름돈을 받았습니다. ', '뭔가 이상했습니다.', ' 다시 세어봤더니 — 달랐습니다.'],
@@ -302,14 +318,12 @@ const CONTENT = {
   }
 }
 
-const SLIDES = Array.from({ length: 12 }, (_, i) => i)
-
 // ─── SLIDE COMPONENTS ──────────────────────────────────────
 function Slide1({ c }) {
   return (
     <div style={{ width:'100%', height:'100%', display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', textAlign:'center' }}>
       <div className="title-logo-row">
-        <span className="title-flag">🇵🇦</span>
+        <PanamaFlag />
         <span className="title-org">{c.org}</span>
       </div>
       <h1 className="title-main">{c.titleMain[0]}<br /><em>{c.titleMain[1]}</em></h1>
@@ -357,7 +371,7 @@ function Slide3({ c }) {
         <span className="flag-divider">+</span>
         <div className="flag-card"><span className="flag-emoji">🇺🇸</span><span className="flag-name">{c.s3Flag2}</span></div>
         <span className="flag-divider">+</span>
-        <div className="flag-card"><span className="flag-emoji">🇵🇦</span><span className="flag-name">{c.s3Flag3}</span></div>
+        <div className="flag-card"><PanamaFlag width={32} height={22} /><span className="flag-name">{c.s3Flag3}</span></div>
       </div>
       <p className="section-sub" style={{ textAlign:'center', whiteSpace:'nowrap', maxWidth:'none' }}>{c.s3Sub}</p>
     </div>
@@ -572,6 +586,13 @@ const SLIDE_COMPS = [Slide1,Slide2,Slide3,Slide4,Slide5,Slide6,Slide7,Slide8,Sli
 
 // ─── MAIN APP ───────────────────────────────────────────────
 export default function App() {
+  const [deck, setDeck] = useState(() => {
+    try {
+      return localStorage.getItem('pref_deck') || 'p2'
+    } catch {
+      return 'p2'
+    }
+  })
   const [current, setCurrent] = useState(0)
   const [prev, setPrev] = useState(null)
   const [lang, setLang] = useState(() => {
@@ -581,8 +602,21 @@ export default function App() {
       return 'es'
     }
   })
-  const total = SLIDES.length
-  const c = CONTENT[lang] || CONTENT.es
+
+  const slideComps = deck === 'p2' ? P2_SLIDE_COMPS : SLIDE_COMPS
+  const total = slideComps.length
+  const activeContent = deck === 'p2' ? CONTENT_P2 : CONTENT
+  const c = activeContent[lang] || activeContent.es
+
+  const switchDeck = (newDeck) => {
+    if (newDeck === deck) return
+    setDeck(newDeck)
+    setCurrent(0)
+    setPrev(null)
+    try {
+      localStorage.setItem('pref_deck', newDeck)
+    } catch {}
+  }
 
   const changeLang = (newLang) => {
     setLang(newLang)
@@ -656,19 +690,39 @@ export default function App() {
     else document.exitFullscreen()
   }
 
+  const isQRSlide = deck === 'p2' && slideComps[current] === P2.P2SlideQR
+
   return (
     <div className="presentation">
-      {SLIDE_COMPS.map((SlideComp, i) => (
-        <div key={i} className={`slide ${i === current ? 'active' : ''} ${i === prev ? 'exit-left' : ''}`}>
+      {slideComps.map((SlideComp, i) => (
+        <div key={`${deck}-${i}`} className={`slide ${i === current ? 'active' : ''} ${i === prev ? 'exit-left' : ''}`}>
           <SlideComp c={c} />
         </div>
       ))}
 
       {/* Top left: fullscreen */}
-      <button className="fullscreen-btn" onClick={toggleFullscreen}>⛶ {c.fullscreen}</button>
+      {!isQRSlide && <button className="fullscreen-btn" onClick={toggleFullscreen}>⛶ {c.fullscreen}</button>}
+
+      {/* Top center: Presentation switcher */}
+      {!isQRSlide && <div className="deck-switcher">
+        <button
+          className={`deck-btn ${deck === 'p1' ? 'active' : ''}`}
+          onClick={() => switchDeck('p1')}
+          title={lang === 'es' ? '1ª Presentación: Filosofía y Origen' : lang === 'en' ? '1st Presentation: Philosophy & Origin' : '제1회: 탄생과 철학'}
+        >
+          <span>🌱</span> {lang === 'es' ? '1ª: Filosofía' : lang === 'en' ? '1st: Philosophy' : '1회: 탄생과 철학'}
+        </button>
+        <button
+          className={`deck-btn ${deck === 'p2' ? 'active' : ''}`}
+          onClick={() => switchDeck('p2')}
+          title={lang === 'es' ? '2ª Presentación: Guía de Uso en Aula' : lang === 'en' ? '2nd Presentation: Classroom Guide' : '제2회: 교실 활용과 협업'}
+        >
+          <span>🏫</span> {lang === 'es' ? '2ª: Uso en Aula' : lang === 'en' ? '2nd: Classroom' : '2회: 교실 활용과 협업'}
+        </button>
+      </div>}
 
       {/* Top right: sleek language switcher */}
-      <div className="lang-switcher">
+      {!isQRSlide && <div className="lang-switcher">
         {[
           { id: 'es', label: 'ES' },
           { id: 'en', label: 'EN' },
@@ -683,16 +737,16 @@ export default function App() {
             {item.label}
           </button>
         ))}
-      </div>
+      </div>}
 
       {/* Slide number */}
-      <div className="slide-badge">{current + 1} / {total}</div>
+      {!isQRSlide && <div className="slide-badge">{current + 1} / {total}</div>}
 
       {/* Bottom nav */}
-      <nav className="nav-bar">
+      <nav className="nav-bar" style={isQRSlide ? { opacity: 0.15 } : {}}>
         <button className="nav-btn" onClick={goPrev} disabled={current === 0}>←</button>
         <div className="progress-dots">
-          {SLIDES.map(i => (
+          {Array.from({ length: total }, (_, i) => i).map(i => (
             <button key={i} className={`progress-dot ${i === current ? 'active' : ''}`} onClick={() => goTo(i)} />
           ))}
         </div>
@@ -701,3 +755,4 @@ export default function App() {
     </div>
   )
 }
+

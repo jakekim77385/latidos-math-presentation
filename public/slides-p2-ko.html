@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>파나마의 수학 — 제2회 발표자료 (한국어)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Noto+Sans+KR:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #003087; --red: #c21e2d; --bg: #f8f7f4; --surface: #ffffff;
+    --border: #e2e0db; --text: #1a1a2e; --text2: #4a4a6a; --text3: #8a8aaa; --green: #1a7f4b;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Noto Sans KR', sans-serif; background: #ddd; }
+  @media print {
+    body { background: white; }
+    .no-print { display: none !important; }
+    .slide { page-break-after: always; box-shadow: none !important; }
+    .slide:last-child { page-break-after: avoid; }
+    @page { size: A4 landscape; margin: 0; }
+  }
+  .no-print { position: fixed; top: 1rem; right: 1rem; z-index: 999; }
+  .no-print button { background: var(--blue); color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-family: 'Noto Sans KR', sans-serif; font-size: 0.88rem; font-weight: 600; }
+  .slide { width: 297mm; height: 210mm; background: var(--bg); display: flex; flex-direction: column; position: relative; overflow: hidden; margin: 0 auto 12px; box-shadow: 0 4px 24px rgba(0,0,0,0.15); padding: 14mm 18mm; }
+  .slide-inner { position: relative; z-index: 1; height: 100%; display: flex; flex-direction: column; }
+  .slide-num { position: absolute; top: 6mm; right: 8mm; font-size: 7pt; color: var(--text3); }
+  .panama-bar { position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--blue) 50%, var(--red) 50%); }
+  .eyebrow { display: inline-block; font-size: 6.5pt; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text3); margin-bottom: 4px; }
+  .eyebrow.red { color: var(--red); }
+  .eyebrow.green { color: var(--green); }
+  .accent-bar { width: 32px; height: 3px; background: linear-gradient(90deg, var(--blue), var(--red)); border-radius: 100px; margin: 5px 0 10px; }
+  h1 { font-family: 'Noto Sans KR', sans-serif; font-size: 21pt; font-weight: 900; line-height: 1.2; color: var(--text); }
+  h1 em { font-style: normal; color: var(--blue); }
+  h2 { font-family: 'Noto Sans KR', sans-serif; font-size: 15pt; font-weight: 800; line-height: 1.25; color: var(--text); }
+  h2 em { font-style: normal; color: var(--blue); }
+  h2 em.red { color: var(--red); }
+  h3 { font-family: 'Noto Sans KR', sans-serif; font-size: 9pt; font-weight: 700; color: var(--text); margin-bottom: 3px; }
+  p { font-size: 8pt; color: var(--text2); line-height: 1.65; }
+  p strong { color: var(--text); font-weight: 700; }
+  .title-org-row { display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 12px; }
+  .title-org-row span { font-size: 8pt; color: var(--text3); }
+  .title-sub { font-size: 8.5pt; color: var(--text2); margin-bottom: 16px; }
+  .author-card { display: inline-flex; flex-direction: column; align-items: center; text-align: center; background: white; border: 1px solid var(--border); border-radius: 10px; padding: 8px 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
+  .author-info h3 { font-size: 9pt; margin-bottom: 1px; }
+  .author-info p { font-size: 7.5pt; color: var(--text3); }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px; }
+  .card { background: white; border: 1px solid var(--border); border-radius: 8px; padding: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
+  .card.blue { border-top: 3px solid var(--blue); }
+  .card.red { border-top: 3px solid var(--red); }
+  .card.green { border-top: 3px solid var(--green); }
+  .card-num { font-size: 13pt; font-weight: 900; color: var(--red); margin-bottom: 4px; }
+  .card-tag { font-size: 6pt; font-weight: 700; text-transform: uppercase; background: rgba(0,48,135,0.08); color: var(--blue); padding: 2px 6px; border-radius: 100px; display: inline-block; margin-bottom: 5px; }
+  .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 10px; }
+  .compare-card { background: white; border: 1px solid var(--border); border-radius: 8px; padding: 12px; }
+  .compare-card.before { border-top: 3px solid var(--red); }
+  .compare-card.after { border-top: 3px solid var(--blue); }
+  .compare-list { list-style: none; margin-top: 6px; }
+  .compare-list li { font-size: 7.5pt; color: var(--text2); line-height: 1.6; margin-bottom: 4px; padding-left: 12px; position: relative; }
+  .compare-list li.bad::before { content: '✕'; position: absolute; left: 0; color: var(--red); font-weight: 700; }
+  .compare-list li.good::before { content: '✓'; position: absolute; left: 0; color: var(--green); font-weight: 700; }
+  .quote-box { background: white; border-left: 4px solid var(--blue); border-radius: 8px; padding: 14px 18px; margin: 16px auto; max-width: 600px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); text-align: center; }
+  .quote-box p { font-size: 9.5pt; font-weight: 600; color: var(--text); font-style: italic; line-height: 1.6; }
+  .closing-links { display: flex; gap: 10px; justify-content: center; margin: 12px 0; }
+  .close-link { background: white; border: 1px solid var(--border); border-radius: 8px; padding: 9px 14px; text-decoration: none; min-width: 140px; }
+  .close-link .lbl { font-size: 6.5pt; font-weight: 700; text-transform: uppercase; color: var(--blue); margin-bottom: 2px; }
+  .close-link .url { font-size: 7pt; color: var(--text2); }
+  .contact-row { display: flex; gap: 20px; justify-content: center; margin-top: 10px; }
+  .contact-row span { font-size: 8pt; color: var(--text2); }
+  .badge-p2 { background: rgba(194,30,45,0.1); color: var(--red); border: 1px solid rgba(194,30,45,0.2); font-size: 6.5pt; font-weight: 700; padding: 2px 6px; border-radius: 100px; }
+</style>
+</head>
+<body>
+<div class="no-print">
+  <button onclick="window.print()">🖨️ PDF로 저장 (Ctrl+P)</button>
+</div>
+
+<!-- SLIDE 1 -->
+<div class="slide">
+  <div class="slide-inner" style="align-items:center;justify-content:center;text-align:center">
+    <div class="title-org-row"><span>Club Heartitude · 파나마 2026</span><span class="badge-p2">제 2회 발표</span></div>
+    <h1>교실 속으로 들어간 수학 도구:<br><em>수업 활용 모델과 교사 협업 계획</em></h1>
+    <div class="accent-bar" style="margin:10px auto 12px"></div>
+    <p class="title-sub">파나마 교실 현장 연계 및 교수학습 가이드 · 예비 교원 협업 프로젝트 · MEDUCA 2024 DFA 기반</p>
+    <div class="author-card">
+      <div class="author-info">
+        <h3>김지윤 (Jiyun Kim)</h3>
+        <p>Instagram: @heartitude_ba</p>
+      </div>
+    </div>
+  </div>
+  <div class="panama-bar"></div><div class="slide-num">1 / 12</div>
+</div>
+
+<!-- SLIDE 2 -->
+<div class="slide">
+  <div class="slide-inner">
+    <div class="eyebrow red">1회차 발표 이후 · 현장에서 들려온 질문들</div>
+    <h2>"좋은 도구인데, 실제 우리 교실에서<br><em class="red">어떻게 써야 할까요?</em>"</h2>
+    <div class="accent-bar"></div>
+    <p style="margin-bottom:8px">1회차 발표 후 현직 선생님과 예비 교원분들께서 던져주신 현실적이고 값진 3가지 질문:</p>
+    <div class="grid-3">
+      <div class="card"><div class="card-num">01</div><span class="card-tag">수업 시간 관리</span><h3>45분 수업 시간 배분</h3><p>기존 진도 나가기도 빠듯한 45분 수업 시간에 디지털 도구를 어떻게 자연스럽게 녹여낼 것인가?</p></div>
+      <div class="card"><div class="card-num">02</div><span class="card-tag">학교 인프라</span><h3>기기 인프라 격차</h3><p>모든 학교가 1인 1태블릿 환경이 아닌데, 기기가 부족한 학교에서는 어떻게 활용할 수 있을까?</p></div>
+      <div class="card"><div class="card-num">03</div><span class="card-tag">수준별 개별화</span><h3>학급 내 학습 편차</h3><p>사칙연산조차 힘겨워하는 아이와 이미 앞서가는 아이가 공존하는 교실에서 어떻게 대응할 것인가?</p></div>
+    </div>
+  </div>
+  <div class="panama-bar"></div><div class="slide-num">2 / 12</div>
+</div>
+
+<!-- SLIDE 3 -->
+<div class="slide">
+  <div class="slide-inner">
+    <div class="eyebrow">도구의 철학</div>
+    <h2>기술은 결코 교사를 대체할 수 없으며,<br><em>교사의 가장 든든한 무기가 되어야 합니다</em></h2>
+    <div class="accent-bar"></div>
+    <p style="margin-bottom:8px">교사를 밀어내는 것이 아니라, 반복 채점과 기계적 드릴에서 교사를 해방시켜 인간적 교육에 집중하게 돕습니다.</p>
+    <div class="grid-3">
+      <div class="card blue"><h3>👨‍🏫 교사의 역할</h3><p><strong>수업 설계와 동기 부여:</strong> 학습 목표 설정, 수학적 사고 유도, 발문과 격려, 아이들과의 눈맞춤은 오직 교사만이 가능합니다.</p></div>
+      <div class="card red"><h3>⚡ 플랫폼의 역할</h3><p><strong>무한 연습과 즉시 채점:</strong> 문제 자동 출제, 실시간 오답 피드백, 성취도 기록 등 반복 작업을 플랫폼이 전담합니다.</p></div>
+      <div class="card green"><h3>🤝 절약된 시간의 가치</h3><p><strong>1:1 밀착 맞춤 지도:</strong> 채점 시간을 아낀 만큼, 기초 연산이 흔들리는 학생 옆에 5분 더 앉아 다정하게 지도할 수 있습니다.</p></div>
+    </div>
+  </div>
+  <div class="panama-bar"></div><div class="slide-num">3 / 12</div>
+</div>
+
+<!-- SLIDE 4 -->
+<div class="slide">
+  <div class="slide-inner">
+    <div class="eyebrow green">수업 표준안</div>
+    <h2>45분 수업 3단계 통합 모델</h2>
+    <div class="accent-bar"></div>
+    <p style="margin-bottom:8px">실제 교실 수업 흐름을 깨뜨리지 않고 자연스럽게 스며드는 3단계 실천 방안:</p>
+    <div class="grid-3">
+      <div class="card blue"><span class="card-tag">도입 · 5~7분</span><h3>개념 및 어휘 활성화</h3><p><strong>배우기 & 어휘:</strong> 선생님이 화면으로 오늘의 핵심 용어와 시각적 예시를 띄워 학급 전체와 개념을 직관적으로 확인합니다.</p></div>
+      <div class="card red"><span class="card-tag">전개 · 25~28분</span><h3>수준별 자기주도 연습</h3><p><strong>연습:</strong> 학생들은 각자의 속도에 맞춰 문제를 풀고 즉시 피드백을 받습니다. 선생님은 순회하며 어려워하는 학생을 돕습니다.</p></div>
+      <div class="card green"><span class="card-tag">정리 · 8~10분</span><h3>성취도 점검 및 게임</h3><p><strong>평가 / 게임존:</strong> 5문항 퀵 체크로 성취도를 확인하거나, 스피드 블리츠 게임으로 재미있게 수업을 마무리합니다.</p></div>
+    </div>
+  </div>
+  <div class="panama-bar"></div><div class="slide-num">4 / 12</div>
+</div>
+
+<!-- SLIDE 5 -->
+<div class="slide">
+  <div class="slide-inner">
+    <div class="eyebrow">환경별 운영 모델</div>
+    <h2>파나마 학교 환경에 맞춘 3가지 유연한 운영 방식</h2>
+    <div class="accent-bar"></div>
+    <div class="grid-3">
+      <div class="card blue"><span class="card-tag">A형 모델</span><h3>1인 1기기 / 컴퓨터실</h3><p>각 학생이 자신의 속도로 완벽히 자기주도 학습. 주 1~2회 집중 연산 클리닉 및 단원 평가에 최적.</p></div>
+      <div class="card red"><span class="card-tag">B형 모델</span><h3>1교실 1기기 / 빔프로젝터</h3><p>화면에 문제를 띄우고 학생들은 공책에 풀거나, 모둠별 대표가 나와 대결하는 참여형 협동 수업.</p></div>
+      <div class="card green"><span class="card-tag">C형 모델</span><h3>가정 연계 모바일 과제</h3><p>수업은 칠판으로 진행하고, 방과 후 부모님 스마트폰으로 10분 복습 과제 부여. 데이터 소모 부담 없음.</p></div>
+    </div>
+  </div>
+  <div class="panama-bar"></div><div class="slide-num">5 / 12</div>
+</div>
+
+<!-- SLIDE 6 -->
+<div class="slide">
+  <div class="slide-inner">
+    <div class="eyebrow">현장 맞춤 개선</div>
+    <h2>파나마 교실의 현실을 고려한 기술적 최적화</h2>
+    <div class="accent-bar"></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px">
+      <div class="card"><h3>🚀 설치 불필요 (Zero Install)</h3><p>앱스토어 다운로드 없이 웹 브라우저에서 1초 만에 실행. 저용량 기기 저장공간을 전혀 차지하지 않습니다.</p></div>
+      <div class="card"><h3>📶 초경량 데이터 (&lt; 1MB)</h3><p>가볍게 설계하여 3G 모바일 환경이나 느린 Wi-Fi에서도 쾌적하게 로딩됩니다.</p></div>
+      <div class="card"><h3>🎯 DFA 2024 교과서 완벽 연계</h3><p>파나마 교육부(MEDUCA) 2024 개정 초등 수학 교육과정의 단원 순서 및 지표와 100% 일치합니다.</p></div>
+      <div class="card"><h3>✨ 친절한 시각 피드백</h3><p>틀렸을 때 감점이나 낙담 대신, 명확한 풀이 힌트를 제공하여 스스로 다시 풀 수 있도록 유도합니다.</p></div>
+    </div>
+  </div>
+  <div class="panama-bar"></div><div class="slide-num">6 / 12</div>
+</div>
+
+<!-- SLIDE 7 -->
+<div class="slide">
+  <div class="slide-inner">
+    <div class="eyebrow red">수업 적용 사례</div>
+    <h2>구체적 수업 시나리오: 3·4학년 구구단과 분수</h2>
+    <div class="accent-bar"></div>
+    <div class="compare-grid">
+      <div class="compare-card before">
+        <h3 style="color:var(--red)">⚠️ 도입 전 · 전통적인 수업</h3>
+        <ul class="compare-list">
+          <li class="bad">칠판에 문제 적고 공책에 베껴 쓰느라 15분 소모</li>
+          <li class="bad">빨리 푼 학생은 할 일 없어 잡담, 느린 학생은 포기</li>
+          <li class="bad">기초 부족 학생은 친구 답을 베끼며 시간 때우기</li>
+          <li class="bad">선생님은 퇴근 후 35명의 연산 공책 채점에 시달림</li>
+        </ul>
+      </div>
+      <div class="compare-card after">
+        <h3 style="color:var(--blue)">✨ 플랫폼 활용 · 활기찬 교실</h3>
+        <ul class="compare-list">
+          <li class="good">시작과 동시에 게임으로 구구단 워밍업: 교실 몰입도 100%</li>
+          <li class="good">분수 막대 시각 모델(Aprende)로 개념을 눈으로 먼저 이해</li>
+          <li class="good">선생님은 연산에 취약한 4명의 학생 곁에서 밀착 지도</li>
+          <li class="good">시스템 자동 채점 완료, 교사의 퇴근길 채점 부담 완전 해소</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="panama-bar"></div><div class="slide-num">7 / 12</div>
+</div>
+
+<!-- SLIDE 8 -->
+<div class="slide">
+  <div class="slide-inner">
+    <div class="eyebrow green">공동 제작 협업</div>
+    <h2>선생님들과 함께 완성해 가는 플랫폼</h2>
+    <div class="accent-bar"></div>
+    <div class="grid-3">
+      <div class="card"><div class="card-num">01</div><h3>현장 체험 및 실습</h3><p>현직 선생님과 사범대 실습생들이 실제 수업이나 모의수업에서 플랫폼을 15분간 시험 적용해 봅니다.</p></div>
+      <div class="card"><div class="card-num">02</div><h3>수업 지도안 공동 설계</h3><p>플랫폼의 각 단원과 실물 교구를 결합한 "파나마 맞춤형 45분 차시별 교수학습 지도안"을 함께 만듭니다.</p></div>
+      <div class="card"><div class="card-num">03</div><h3>즉각적인 기능 업데이트</h3><p>수업 중 발생한 피드백(어휘 설명 보완, 난이도 조절, 신규 문제 제안)을 실시간으로 플랫폼에 반영합니다.</p></div>
+    </div>
+  </div>
+  <div class="panama-bar"></div><div class="slide-num">8 / 12</div>
+</div>
+
+<!-- SLIDE 9 -->
+<div class="slide">
+  <div class="slide-inner">
+    <div class="eyebrow">학습 격차 해소</div>
+    <h2>학습 결손 조기 발견: 단 한 명의 아이도 포기하지 않도록</h2>
+    <div class="accent-bar"></div>
+    <div class="grid-3">
+      <div class="card blue"><h3>🔍 불안 없는 자가 진단</h3><p>성적표에 기록되는 시험이 아닌, '평가'를 통해 자신이 어느 단계를 헷갈려 하는지 부담 없이 진단합니다.</p></div>
+      <div class="card blue"><h3>🔁 맞춤형 되돌아보기</h3><p>받아올림 덧셈에서 오답이 잦을 경우, 해당 개념의 시각적 설명(Aprende)과 기초 드릴로 자연스럽게 안내합니다.</p></div>
+      <div class="card blue"><h3>🌱 작은 성공의 누적</h3><p>매일 한두 문제씩 통과하며 쌓이는 성공 경험이 "나도 수학을 할 수 있다"는 강력한 자기효능감을 심어줍니다.</p></div>
+    </div>
+  </div>
+  <div class="panama-bar"></div><div class="slide-num">9 / 12</div>
+</div>
+
+<!-- SLIDE 10 -->
+<div class="slide">
+  <div class="slide-inner">
+    <div class="eyebrow">실행 계획</div>
+    <h2>2026년 현장 파일럿 실행 로드맵</h2>
+    <div class="accent-bar"></div>
+    <div class="grid-3">
+      <div class="card"><span class="card-tag">1단계 · 1~2개월 차</span><h3>교사 워크숍 & 시범 학급</h3><p>자원 교사 및 사범대 학생들과 워크숍을 열고, 5~10개 시범 학급에서 첫 번째 수업 적용을 시작합니다.</p></div>
+      <div class="card"><span class="card-tag">2단계 · 3~4개월 차</span><h3>중간 간담회 & 플랫폼 고도화</h3><p>학생들의 반응과 학습 데이터를 함께 점검하고, 선생님들의 요구사항을 반영해 UI와 콘텐츠를 업그레이드합니다.</p></div>
+      <div class="card"><span class="card-tag">3단계 · 5~6개월 차</span><h3>교수학습 핸드북 배포 & 학교 확대</h3><p>검증된 수업 사례를 엮어 가이드를 발간하고 더 많은 공립학교로 확산합니다.</p></div>
+    </div>
+  </div>
+  <div class="panama-bar"></div><div class="slide-num">10 / 12</div>
+</div>
+
+<!-- SLIDE 11 -->
+<div class="slide">
+  <div class="slide-inner" style="align-items:center;justify-content:center;text-align:center">
+    <div class="eyebrow red">선생님들께 드리는 약속</div>
+    <h2>알고리즘은 아이를 감동시킬 수 없습니다.<br><em>아이를 깨우는 것은 선생님의 따뜻한 눈빛입니다.</em></h2>
+    <div class="accent-bar" style="margin:8px auto 10px"></div>
+    <div class="quote-box">
+      <p>"컴퓨터는 곱셈을 0.001초 만에 채점할 수 있지만, 한 번 좌절한 아이의 어깨를 토닥이며 '괜찮아, 넌 할 수 있어'라고 말해줄 수 있는 것은 오직 선생님뿐입니다."</p>
+    </div>
+    <p style="text-align:center;max-width:520px;margin:10px auto 0">이 플랫폼은 영원히 100% 무료이며, 광고 없이 순수하게 파나마 선생님들의 교육 활동을 지원할 것입니다.</p>
+  </div>
+  <div class="panama-bar"></div><div class="slide-num">11 / 12</div>
+</div>
+
+<!-- SLIDE 12 -->
+<div class="slide">
+  <div class="slide-inner" style="align-items:center;justify-content:center;text-align:center">
+    <div class="eyebrow green">함께하기 & 질의응답</div>
+    <h2>파나마 아이들의 수학적 내일을<br><em>교실에서 함께 만들어 갑시다.</em></h2>
+    <div class="accent-bar" style="margin:8px auto 10px"></div>
+    <p style="text-align:center;max-width:500px;margin:0 auto 12px">현직 선생님, 학교 관리자, 그리고 미래의 교사가 되실 예비 교원 여러분의 동참을 기다립니다.</p>
+    <div class="closing-links">
+      <a class="close-link" href="https://jy-matematica-panama.vercel.app/"><div class="lbl">초등 · 1~6학년</div><div class="url">jy-matematica-panama.vercel.app</div></a>
+      <a class="close-link" href="https://latidos-ninos.vercel.app/p/index.html"><div class="lbl">유아</div><div class="url">latidos-ninos.vercel.app</div></a>
+    </div>
+    <div class="contact-row">
+      <span>jiyun.k.heartitude@gmail.com</span>
+      <span>Instagram: @heartitude_ba</span>
+    </div>
+  </div>
+  <div class="panama-bar"></div><div class="slide-num">12 / 12</div>
+</div>
+
+</body>
+</html>
